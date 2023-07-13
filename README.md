@@ -1,4 +1,4 @@
-:pushpin:#ToDoAPI :memo:
+:pushpin: <h1 align="center"> #ToDoAPI </h1> :memo:
 
 Desenvolvi uma API para gerenciar uma lista de tarefas.
 
@@ -22,7 +22,8 @@ Utilizei a biblioteca de testes XUnit para criar casos de teste, garantindo a qu
 
 Versão .NET Core;
 
-:bulb:-[Pacotes e Bibliotecas](#pacotes e bibliotecas)
+:bulb:
+-[Pacotes e Bibliotecas](#Pacotes-e-Bibliotecas)
 
 Newonsoft.Json(13.0.1);
 
