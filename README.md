@@ -1,4 +1,4 @@
-:pushpin: <h1 align="center"> #ToDoAPI </h1> :memo:
+ <h1 align="center">:pushpin: #ToDoAPI :memo: </h1> 
 
 Desenvolvi uma API para gerenciar uma lista de tarefas.
 
