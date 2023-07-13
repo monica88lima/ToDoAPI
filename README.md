@@ -2,20 +2,24 @@
 
 Desenvolvi uma API para gerenciar uma lista de tarefas.
 
-:computer:-[Tecnologias](#tecnologias)
-utilizando a linguagem C# e o framework .NET, mais especificamente o dotnet.
+-[Recursos](#recursos)
 
-Um aspecto importante durante o desenvolvimento foi a implementação de testes unitários. 
-Utilizei a biblioteca de testes XUnit para criar casos de teste, garantindo a qualidade e a confiabilidade do código.
+A API permite criar, atualizar, listar e excluir tarefas, como também,  filtragem por diferentes critérios.
+
+:computer:-[Tecnologias](#tecnologias)
+
+Utilizando a linguagem C# e o framework .NET, mais especificamente o dotnet.
+
+**Um aspecto importante durante o desenvolvimento foi a implementação de testes unitários. 
+Utilizei a biblioteca de testes XUnit para criar casos de teste, garantindo a qualidade e a confiabilidade do código.**
+
 
 :test_tube:-[Dashboard de Testes Unitários](#dashboard)
+
 ![Painel atual](https://github.com/monica88lima/ToDoAPI/blob/master/dashboard.JPG)
 
 ##Índice
 
--[Recursos](#recursos)
-
-A API permite criar, atualizar, listar e excluir tarefas, como também,  filtragem por diferentes critérios.
 
 -[Pré-requisitos](#pré-requisitos)
 
