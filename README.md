@@ -4,11 +4,11 @@ Desenvolvi uma API para gerenciar uma lista de tarefas.
 
 :computer:-[Tecnologia](#tecnologia)
 
-Utilizei a linguagem C# e o framework .NET, mais especificamente o dotnet.
+Utilizei a linguagem C# e o framework .NET.
 
 -[Recursos](#recursos)
 
-A API permite criar, atualizar, listar e excluir tarefas, como também,  filtragem por diferentes critérios.
+A API permite criar, atualizar, listar e excluir tarefas, como também,  filtra por diferentes critérios.
 
 **Um aspecto importante durante o desenvolvimento foi a implementação de testes unitários. **
 Utilizei a biblioteca de testes XUnit para criar casos de teste, garantindo a qualidade e a confiabilidade do código.
