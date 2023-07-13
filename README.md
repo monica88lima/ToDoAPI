@@ -15,7 +15,7 @@ Utilizei a biblioteca de testes XUnit para criar casos de teste, garantindo a qu
 
 :test_tube:##[Dashboard de Testes Unitários](#dashboard)
 
-![dash](https://github.com/monica88lima/ToDoAPI/blob/master/dashboard.JPG)
+![dash](https://github.com/monica88lima/ToDoAPI/blob/master/dash_Controller.JPG)
 
 
 :triangular_flag_on_post:-[Pré-requisitos](#pré-requisitos)
