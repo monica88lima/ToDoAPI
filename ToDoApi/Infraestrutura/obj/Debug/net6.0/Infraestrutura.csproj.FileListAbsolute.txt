@@ -1,0 +1,17 @@
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\bin\Debug\net6.0\Infraestrutura.deps.json
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\bin\Debug\net6.0\Infraestrutura.runtimeconfig.json
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\bin\Debug\net6.0\Infraestrutura.dll
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\bin\Debug\net6.0\Infraestrutura.pdb
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\obj\Debug\net6.0\Infraestrutura.csproj.AssemblyReference.cache
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\obj\Debug\net6.0\Infraestrutura.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\obj\Debug\net6.0\Infraestrutura.AssemblyInfoInputs.cache
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\obj\Debug\net6.0\Infraestrutura.AssemblyInfo.cs
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\obj\Debug\net6.0\Infraestrutura.csproj.CoreCompileInputs.cache
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\obj\Debug\net6.0\Infraestrutura.dll
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\obj\Debug\net6.0\refint\Infraestrutura.dll
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\obj\Debug\net6.0\Infraestrutura.pdb
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\obj\Debug\net6.0\Infraestrutura.genruntimeconfig.cache
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\obj\Debug\net6.0\ref\Infraestrutura.dll
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\bin\Debug\net6.0\Dominio.dll
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\bin\Debug\net6.0\Dominio.pdb
+C:\Users\flima\OneDrive\Documentos\Projetos\ToDo\ToDoApi\Infraestrutura\obj\Debug\net6.0\Infraestrutura.csproj.CopyComplete

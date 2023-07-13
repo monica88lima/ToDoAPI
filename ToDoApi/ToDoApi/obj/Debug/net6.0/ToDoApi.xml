@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ToDoApi</name>
+    </assembly>
+    <members>
+        <member name="M:ToDoApi.Controllers.TarefaController.Consulta">
+            <summary>
+            Exibe uma relação de tarefas
+            </summary>
+            <returns>Uma lista com todas as tarefas cadastradas</returns>
+        </member>
+        <member name="M:ToDoApi.Controllers.TarefaController.Consulta(System.Int32)">
+            <summary>
+            Obtém tarefa por ID
+            </summary>
+            <param name="id"></param>
+            <returns>Um objeto tarefa</returns>
+        </member>
+        <member name="M:ToDoApi.Controllers.TarefaController.ConsultaPorNome(System.String)">
+            <summary>
+            Obtém uma lista de Tarefas que contém a palavra pesquisada no título
+            </summary>
+            <param name="titulo">Palavras que podem estar no titulo da tarefa</param>
+            <returns>Uma lista do objeto Tarefa</returns>
+        </member>
+        <member name="M:ToDoApi.Controllers.TarefaController.ConsultaPorDataCriacao(System.DateTime)">
+            <summary>
+            Obtém uma lista de tarefas que foram criadas em uma determinada data
+            </summary>
+            <param name="data"> data no formato yyyy-MM-dd</param>
+            <returns>Uma lista com objetos que tenha a data de criação informada no parametro</returns>
+        </member>
+        <member name="M:ToDoApi.Controllers.TarefaController.ConsultaPorPeriodo(System.DateTime,System.DateTime)">
+            <summary>
+            Obtém uma lista do objeto Tarefa, que contenham a data de inicio e fim, dentre as informadas nos parametros
+            </summary>
+            <param name="datainicial">data que foi registrada como inicio da tarefa, formato da data yyyy-MM-dd</param>
+            <param name="datafinal">data que foi registrada como o dia fim da tarefa,formato da data yyyy-MM-dd</param>
+            <returns>Retorna de lista de objetos com as pertence ao range indicado</returns>
+        </member>
+        <member name="M:ToDoApi.Controllers.TarefaController.Salvar(ToDoApi.DTO.TarefaDto)">
+            <summary>
+            Inclui uma nova tarefa
+            </summary>
+            <param name="tarefaDto"> </param>
+            <returns>A tarefa conforme cadastrada</returns>
+        </member>
+        <member name="M:ToDoApi.Controllers.TarefaController.Alterar(System.Int32,ToDoApi.DTO.TarefaDto)">
+            <summary>
+            Altera informações de uma tarefa já cadastrada
+            </summary>
+            <param name="id"> Id da Tarefa que deseja alterar</param>
+            <param name="tarefaDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ToDoApi.Controllers.TarefaController.Deletar(System.Int32)">
+            <summary>
+            Remove a tarefa informada pelo ID
+            </summary>
+            <param name="id">Id da tarefa de deseja apagar</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
