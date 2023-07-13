@@ -10,7 +10,7 @@ Utilizei a linguagem C# e o framework .NET.
 
 A API permite criar, atualizar, listar e excluir tarefas, como também,  filtra por diferentes critérios.
 
-**Um aspecto importante durante o desenvolvimento foi a implementação de testes unitários. **
+**Um aspecto importante durante o desenvolvimento foi a implementação de testes unitários.**
 Utilizei a biblioteca de testes XUnit para criar casos de teste, garantindo a qualidade e a confiabilidade do código.
 
 :test_tube:##[Dashboard de Testes Unitários](#dashboard)
