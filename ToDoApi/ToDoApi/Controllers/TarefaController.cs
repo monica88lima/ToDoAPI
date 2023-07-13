@@ -39,7 +39,7 @@ namespace ToDoApi.Controllers
         {
             var tarefa = _uof.TarefaRepositorio.Get().ToList();
             var tarefaDto = _mapper.Map<List<TarefaDto>>(tarefa);
-            if (tarefa is null)
+            if (tarefa.Count == 0)
             {
                 return NotFound("Não há tarefa Cadastrada!");
             }
