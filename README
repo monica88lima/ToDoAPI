@@ -1,4 +1,4 @@
-<h1 align="center">:pushpin:#ToDoAPI :memo:</h1>
+:pushpin:#ToDoAPI :memo:
 
 Desenvolvi uma API para gerenciar uma lista de tarefas.
 
@@ -16,7 +16,6 @@ Utilizei a biblioteca de testes XUnit para criar casos de teste, garantindo a qu
 :test_tube:##[Dashboard de Testes Unitários](#dashboard)
 
 ![Painel atual](https://github.com/monica88lima/ToDoAPI/blob/master/dashboard.JPG)
-
 
 
 :triangular_flag_on_post:-[Pré-requisitos](#pré-requisitos)
