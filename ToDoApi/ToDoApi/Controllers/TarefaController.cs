@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Dominio;
 using Infraestrutura.Contexto;
+using Infraestrutura.Paginacao;
 using Infraestrutura.Repositorio;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,17 +28,18 @@ namespace ToDoApi.Controllers
             _configuration = configuration;
             _mapper = mapper;
         }
-        /// <summary>
-        /// Exibe uma relação de tarefas
-        /// </summary>
-        /// <returns>Uma lista com todas as tarefas cadastradas</returns>
+       /// <summary>
+       /// Exibe a consuta ordenada por titulo, com todos os registros de Tarefas, podendo ser paginada 
+       /// </summary>
+       /// <param name="tarefaparametro"></param> Informações sobre a quantidade de páginas
+       /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(TarefaDto), StatusCodes.Status200OK)]
         [ProducesResponseType(404)]
         [ServiceFilter(typeof(TarefaFiltros))]
-        public ActionResult<IEnumerable<TarefaDto>> Consulta()
+        public ActionResult<IEnumerable<TarefaDto>> Consulta([FromQuery] TarefaParametros tarefaparametro)
         {
-            var tarefa = _uof.TarefaRepositorio.Get().ToList();
+            var tarefa = _uof.TarefaRepositorio.GetTarefas(tarefaparametro).ToList();
             var tarefaDto = _mapper.Map<List<TarefaDto>>(tarefa);
             if (tarefa.Count == 0)
             {

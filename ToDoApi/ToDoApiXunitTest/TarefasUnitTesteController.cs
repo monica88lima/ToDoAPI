@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using Infraestrutura.Contexto;
+using Infraestrutura.Paginacao;
 using Infraestrutura.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Net.WebSockets;
 using ToDoApi.Controllers;
 using ToDoApi.DTO;
 using ToDoApi.DTO.Mappings;
@@ -48,9 +50,10 @@ namespace ToDoApiXunitTest
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
-
+            TarefaParametros parametros = new();
+            
             //Act
-            var data = controller.Consulta();
+            var data = controller.Consulta(parametros);
 
             //Assert
             Assert.IsType<List<TarefaDto>>(data.Value);
@@ -129,10 +132,10 @@ namespace ToDoApiXunitTest
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
-
+            TarefaParametros parametros = new() ;
 
             //Act
-            var data = controller.Consulta();
+            var data = controller.Consulta(parametros);
 
             //Assert
             Assert.IsType<List<TarefaDto>>(data.Value);
@@ -141,8 +144,8 @@ namespace ToDoApiXunitTest
             Assert.Equal("Almoçar", trf[0].Titulo);
             Assert.Equal("Ingerir alimentos as 12h", trf[0].Descricao);
 
-            Assert.Equal("Comprar presente Maria Luiza", trf[4].Titulo);
-            Assert.Equal("Aniversario dela", trf[4].Descricao);
+            Assert.Equal("Guarda brinquedos", trf[4].Titulo);
+            Assert.Equal("bonecas", trf[4].Descricao);
         }
         /// <summary>
         /// Teste de pesquisa por lista, esperado uma lista cm diversas tarefas

@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Infraestrutura.Paginacao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Infraestrutura.Repositorio
     {
         IEnumerable<Tarefa> GetTarefaEspeficica(Expression<Func<Tarefa, bool>> predicate);
 
-
+        IEnumerable<Tarefa> GetTarefas(TarefaParametros tarefaparametro);
 
     }
 }

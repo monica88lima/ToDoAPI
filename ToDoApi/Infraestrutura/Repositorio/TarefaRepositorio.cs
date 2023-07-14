@@ -1,5 +1,6 @@
 ﻿using Dominio;
 using Infraestrutura.Contexto;
+using Infraestrutura.Paginacao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,9 @@ namespace Infraestrutura.Repositorio
             return _context.Set<Tarefa>().Where(predicate);
         }
 
-       
+        public IEnumerable<Tarefa> GetTarefas(TarefaParametros tarefaparametro)
+        {
+            return Get().OrderBy(on => on.Titulo).Skip((tarefaparametro.NumeroPagina - 1) * tarefaparametro.TamanhoPg).Take(tarefaparametro.TamanhoPg).ToList();
+        }
     }
 }
