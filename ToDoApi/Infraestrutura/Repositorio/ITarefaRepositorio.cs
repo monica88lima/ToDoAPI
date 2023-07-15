@@ -13,7 +13,7 @@ namespace Infraestrutura.Repositorio
     {
         IEnumerable<Tarefa> GetTarefaEspeficica(Expression<Func<Tarefa, bool>> predicate);
 
-        IEnumerable<Tarefa> GetTarefas(TarefaParametros tarefaparametro);
+        PaginacaoList<Tarefa> GetTarefas(TarefaParametros tarefaparametro);
 
     }
 }

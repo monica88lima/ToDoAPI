@@ -4,11 +4,12 @@
         <name>ToDoApi</name>
     </assembly>
     <members>
-        <member name="M:ToDoApi.Controllers.TarefaController.Consulta">
+        <member name="M:ToDoApi.Controllers.TarefaController.Consulta(Infraestrutura.Paginacao.TarefaParametros)">
             <summary>
-            Exibe uma relação de tarefas
+            Exibe a consuta ordenada por titulo, com todos os registros de Tarefas, podendo ser paginada 
             </summary>
-            <returns>Uma lista com todas as tarefas cadastradas</returns>
+            <param name="tarefaparametro"></param> Informações sobre a quantidade de páginas
+            <returns></returns>
         </member>
         <member name="M:ToDoApi.Controllers.TarefaController.Consulta(System.Int32)">
             <summary>

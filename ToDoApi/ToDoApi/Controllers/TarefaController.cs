@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using ToDoApi.DTO;
 using ToDoApi.Filtros;
 
@@ -39,7 +40,19 @@ namespace ToDoApi.Controllers
         [ServiceFilter(typeof(TarefaFiltros))]
         public ActionResult<IEnumerable<TarefaDto>> Consulta([FromQuery] TarefaParametros tarefaparametro)
         {
-            var tarefa = _uof.TarefaRepositorio.GetTarefas(tarefaparametro).ToList();
+            var tarefa = _uof.TarefaRepositorio.GetTarefas(tarefaparametro);
+            var metadata = new
+            {
+                tarefa.ContarRegistros,
+                tarefa.QuantidadeDeRegistros,
+                tarefa.PaginaAtual,
+                tarefa.TotalDePaginas,
+                tarefa.ProximaPagina,
+                tarefa.PaginaAnterior
+
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
             var tarefaDto = _mapper.Map<List<TarefaDto>>(tarefa);
             if (tarefa.Count == 0)
             {

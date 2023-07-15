@@ -8,17 +8,17 @@ namespace Infraestrutura.Paginacao
 {
     public class TarefaParametros
     {
-        const int tamanhoMaximo = 50;
+        const int quantidadeMaxRegistros = 50;
         public int NumeroPagina { get; set; } = 1;
-        private int _tamanhoPagina = 10;
+        private int _quantidadeRegistros = 10;
 
-        public int TamanhoPg { get
+        public int QuantidadeDeRegistros { get
             {
-                return _tamanhoPagina;
+                return _quantidadeRegistros;
             }
             set
             {
-                _tamanhoPagina = (value > tamanhoMaximo)? tamanhoMaximo : value;
+                _quantidadeRegistros = (value > quantidadeMaxRegistros) ? quantidadeMaxRegistros : value;
             }
         }
 
