@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Net.WebSockets;
+using System.Runtime.CompilerServices;
 using ToDoApi.Controllers;
 using ToDoApi.DTO;
 using ToDoApi.DTO.Mappings;
@@ -19,6 +20,7 @@ namespace ToDoApiXunitTest
         private readonly IUnitOfWork repos;
         private static readonly IConfiguration conf;
         private readonly IMapper mapper;
+        public int MyProperty { get; set; }
         public static DbContextOptions<AppDbContext> dbContextOptions { get; }
 
 
@@ -40,6 +42,57 @@ namespace ToDoApiXunitTest
             var context = new AppDbContext(dbContextOptions);
             repos = new UnitOfWork(context);
 
+
+        }
+
+        /// <summary>
+        /// Teste do método post com parametros válidos
+        /// </summary>
+        [Fact]
+        public void Salva_PostTarefa()
+        {
+            //Arrange
+            var controller = new TarefaController(repos, mapper, conf);
+
+            var trf = new TarefaDto()
+            {
+                Titulo = "Teste Unitário",
+                Descricao = "Salvando Teste",
+                DataInicio = new DateTime(2023, 7, 15),
+                DataFim = new DateTime(2023, 7, 15)
+            };
+
+            //Act
+            var data = controller.Salvar(trf);
+
+            //Assert
+            Assert.IsType<CreatedAtRouteResult>(data);
+
+        }
+
+        /// <summary>
+        /// Teste método put com informações válida
+        /// </summary>
+        [Fact]
+        public void Alterar_PutTarefa()
+        {
+            //Arrange
+            var controller = new TarefaController(repos, mapper, conf);
+            int id = 1011;
+            var trf = new TarefaDto()
+            {
+                TarefaId = 1011,
+                Titulo = " Teste Unitario ",
+                Descricao = "Alterando",
+                DataInicio = new DateTime(2023, 7, 15),
+                DataFim = new DateTime(2023, 7, 15)
+            };
+
+            //Act
+            var data = controller.Alterar(id, trf);
+
+            //Assert
+            Assert.IsType<NoContentResult>(data);
 
         }
         /// <summary>
@@ -253,55 +306,7 @@ namespace ToDoApiXunitTest
             Assert.IsType<NotFoundObjectResult>(data.Result);
 
         }
-        /// <summary>
-        /// Teste do método post com parametros válidos
-        /// </summary>
-        [Fact]
-        public void Salva_PostTarefa()
-        {
-            //Arrange
-            var controller = new TarefaController(repos, mapper, conf);
-
-            var trf = new TarefaDto()
-            {
-                Titulo = "Teste 5",
-                Descricao = "Limpar teste",
-                DataInicio = new DateTime(2023, 7, 15),
-               DataFim = new DateTime(2023, 7, 15)
-            };
-
-            //Act
-            var data = controller.Salvar(trf);
-
-            //Assert
-            Assert.IsType<CreatedAtRouteResult>(data);
-
-        }
-        /// <summary>
-        /// Teste método put com informações válida
-        /// </summary>
-        [Fact]
-        public void Alterar_PutTarefa()
-        {
-            //Arrange
-            var controller = new TarefaController(repos, mapper, conf);
-            int id = 1011 ;
-            var trf = new TarefaDto()
-            {
-                TarefaId = 1011,
-                Titulo = "Lavar Geladeira - Teste Unitario 8",
-                Descricao = "Limpar dentro e fora",
-                DataInicio = new DateTime(2023, 7, 15),
-                DataFim = new DateTime(2023, 7, 15)
-            };
-
-            //Act
-            var data = controller.Alterar(id, trf);
-
-            //Assert
-            Assert.IsType<NoContentResult>(data);
-
-        }
+              
         /// <summary>
         /// Teste para validar o retorno de um atentativa de alteração com im ID divergente da Tarefa enviada.
         /// </summary>
@@ -314,7 +319,7 @@ namespace ToDoApiXunitTest
             var trf = new TarefaDto()
             {
                 TarefaId = 1011,
-                Titulo = "Lavar Geladeira - Teste Unitario",
+                Titulo = "Teste Unitario",
                 Descricao = "Limpar dentro e fora",
                 DataInicio = new DateTime(2023, 7, 15),
                 DataFim = new DateTime(2023, 7, 15)
@@ -331,15 +336,15 @@ namespace ToDoApiXunitTest
        /// Teste para deletar com dados válidos
        /// </summary>
         [Fact]
-        public void Deletar_RetornoOk()
+        public async void Deletar_RetornoOk()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
-            int id = 1024;
+            int id = 1017;
            
 
             //Act
-            var data = controller.Deletar(id);
+            var data = await controller.Deletar(id);
 
             //Assert
             Assert.IsType<NoContentResult>(data);
@@ -349,7 +354,7 @@ namespace ToDoApiXunitTest
         /// Teste para validar o envio de um ID inexistente, retorno esperado notfound
         /// </summary>
         [Fact]
-        public void Deletar_RetornoNotFound()
+        public async void Deletar_RetornoNotFound()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
@@ -357,7 +362,7 @@ namespace ToDoApiXunitTest
 
 
             //Act
-            var data = controller.Deletar(id);
+            var data = await controller.Deletar(id);
 
             //Assert
             Assert.IsType<NotFoundObjectResult>(data);

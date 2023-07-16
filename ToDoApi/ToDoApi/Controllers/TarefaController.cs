@@ -260,11 +260,11 @@ namespace ToDoApi.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public ActionResult Deletar(int id)
+        public async Task<ActionResult> Deletar(int id)
         {
             try
             {
-                var tarefa = _uof.TarefaRepositorio.GetById(x => x.TarefaId == id);
+                var tarefa = await  _uof.TarefaRepositorio.GetById(x => x.TarefaId == id);
                 if (tarefa == null)
                 {
                     return NotFound("Tarefa não localizada!");

@@ -19,7 +19,6 @@ namespace Infraestrutura.Paginacao
         public PaginacaoList(List<T> items, int qtdTotal, int pgAtual, int qtdRegistros)
         {
             ContarRegistros = qtdTotal;
-            QuantidadeDeRegistros = qtdRegistros;
             PaginaAtual = pgAtual;
             QuantidadeDeRegistros = qtdRegistros;
             TotalDePaginas = (int) Math.Ceiling(qtdTotal / (double) qtdRegistros);
@@ -30,7 +29,7 @@ namespace Infraestrutura.Paginacao
         public static PaginacaoList<T> ToListPagina(IQueryable<T> fonte, int numeroPagina, int qtdRegistro)
         {
             var quantidade = fonte.Count();
-            var items = fonte.Skip((qtdRegistro - 1)* numeroPagina).Take(qtdRegistro).ToList();
+            var items = fonte.Skip((numeroPagina - 1) * qtdRegistro).Take(qtdRegistro).ToList();
             return new PaginacaoList<T>(items, quantidade, numeroPagina, qtdRegistro);
         }
     }
