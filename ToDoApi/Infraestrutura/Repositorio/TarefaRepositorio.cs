@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using Infraestrutura.Contexto;
 using Infraestrutura.Paginacao;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,14 @@ namespace Infraestrutura.Repositorio
         {
             
         }
-        public IEnumerable<Tarefa> GetTarefaEspeficica(Expression<Func<Tarefa, bool>> predicate)
+        public async Task<IEnumerable<Tarefa>>GetTarefaEspeficica(Expression<Func<Tarefa, bool>> predicate)
         {
-            return _context.Set<Tarefa>().Where(predicate);
+            return await _context.Set<Tarefa>().Where(predicate).ToListAsync();
         }
 
-        public PaginacaoList<Tarefa> GetTarefas(TarefaParametros tarefaparametro)
+        public async Task<PaginacaoList<Tarefa>>GetTarefas(TarefaParametros tarefaparametro)
         {
-            return PaginacaoList<Tarefa>.ToListPagina(Get().OrderBy(on => on.Titulo),
+            return await PaginacaoList<Tarefa>.ToListPagina(Get().OrderBy(on => on.Titulo),
                                                       tarefaparametro.NumeroPagina,tarefaparametro.QuantidadeDeRegistros);
         }
     }

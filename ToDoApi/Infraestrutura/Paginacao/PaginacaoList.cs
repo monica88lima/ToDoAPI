@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,10 +27,10 @@ namespace Infraestrutura.Paginacao
             AddRange(items);
         }
 
-        public static PaginacaoList<T> ToListPagina(IQueryable<T> fonte, int numeroPagina, int qtdRegistro)
+        public async static Task<PaginacaoList<T>> ToListPagina(IQueryable<T> fonte, int numeroPagina, int qtdRegistro)
         {
             var quantidade = fonte.Count();
-            var items = fonte.Skip((numeroPagina - 1) * qtdRegistro).Take(qtdRegistro).ToList();
+            var items = await fonte.Skip((numeroPagina - 1) * qtdRegistro).Take(qtdRegistro).ToListAsync();
             return new PaginacaoList<T>(items, quantidade, numeroPagina, qtdRegistro);
         }
     }

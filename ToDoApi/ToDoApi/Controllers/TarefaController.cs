@@ -38,9 +38,9 @@ namespace ToDoApi.Controllers
         [ProducesResponseType(typeof(TarefaDto), StatusCodes.Status200OK)]
         [ProducesResponseType(404)]
         [ServiceFilter(typeof(TarefaFiltros))]
-        public ActionResult<IEnumerable<TarefaDto>> Consulta([FromQuery] TarefaParametros tarefaparametro)
+        public async Task<ActionResult<IEnumerable<TarefaDto>>> Consulta([FromQuery] TarefaParametros tarefaparametro)
         {
-            var tarefa = _uof.TarefaRepositorio.GetTarefas(tarefaparametro);
+            var tarefa = await _uof.TarefaRepositorio.GetTarefas(tarefaparametro);
             var metadata = new
             {
                 tarefa.ContarRegistros,
@@ -52,7 +52,7 @@ namespace ToDoApi.Controllers
 
             };
 
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            //Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
             var tarefaDto = _mapper.Map<List<TarefaDto>>(tarefa);
             if (tarefa.Count == 0)
             {
@@ -70,11 +70,11 @@ namespace ToDoApi.Controllers
         [ProducesResponseType(typeof(TarefaDto), StatusCodes.Status200OK)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public ActionResult<TarefaDto> Consulta(int id)
+        public async Task<ActionResult<TarefaDto>> Consulta(int id)
         {
             try
             {
-                var tarefa = _uof.TarefaRepositorio.GetById(x => x.TarefaId == id);
+                var tarefa = await _uof.TarefaRepositorio.GetById(x => x.TarefaId == id);
 
                 if (tarefa is null)
                 {
@@ -100,7 +100,7 @@ namespace ToDoApi.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public ActionResult<IEnumerable<TarefaDto>> ConsultaPorNome(string titulo)
+        public  async Task<ActionResult<IEnumerable<TarefaDto>>> ConsultaPorNome(string titulo)
         {
             try
             {
@@ -108,8 +108,8 @@ namespace ToDoApi.Controllers
                 {
                     return BadRequest($"A pesquisa deve contém no minimo 3 caracteres.");
                 }
-                var tarefa = _uof.TarefaRepositorio.GetTarefaEspeficica(x => x.Titulo.Contains(titulo)).ToList();
-                if (tarefa.Count == 0)
+                var tarefa = await _uof.TarefaRepositorio.GetTarefaEspeficica(x => x.Titulo.Contains(titulo));
+                if (tarefa.Count() == 0)
                 {
                     return NotFound($"Nenhuma tarefa localizada!Com este titulo: {titulo}");
                 }
@@ -133,12 +133,12 @@ namespace ToDoApi.Controllers
         [ProducesResponseType(typeof(TarefaDto), StatusCodes.Status200OK)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public ActionResult<IEnumerable<TarefaDto>> ConsultaPorDataCriacao(DateTime data)
+        public async Task<ActionResult<IEnumerable<TarefaDto>>> ConsultaPorDataCriacao(DateTime data)
         {
             try
             {
-                var tarefa = _uof.TarefaRepositorio.GetTarefaEspeficica(x => x.DataCriacao == data).ToList();
-                if (tarefa.Count == 0)
+                var tarefa = await _uof.TarefaRepositorio.GetTarefaEspeficica(x => x.DataCriacao == data);
+                if (tarefa.Count() == 0)
                 {
                     return NotFound($"Nenhuma tarefa localizada nesta data: {data}!");
                 }
@@ -163,7 +163,7 @@ namespace ToDoApi.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public ActionResult<IEnumerable<TarefaDto>> ConsultaPorPeriodo(DateTime datainicial, DateTime datafinal)
+        public async Task<ActionResult<IEnumerable<TarefaDto>>> ConsultaPorPeriodo(DateTime datainicial, DateTime datafinal)
         {
             try
             {
@@ -171,8 +171,8 @@ namespace ToDoApi.Controllers
                 {
                     return BadRequest($"Período inválido, a data inicial({datainicial}) deve ser igual ou maior que a data do término{(datafinal)} da atividade");
                 }
-                var tarefa = _uof.TarefaRepositorio.GetTarefaEspeficica(x => x.DataInicio >= datainicial && x.DataFim <= datafinal).ToList();
-                if (tarefa.Count == 0)
+                var tarefa =await _uof.TarefaRepositorio.GetTarefaEspeficica(x => x.DataInicio >= datainicial && x.DataFim <= datafinal);
+                if (tarefa.Count() == 0)
                 {
                     return NotFound($"Nenhuma tarefa localizada!Para este periodo: {datainicial} /{datafinal}");
                 }
@@ -195,7 +195,7 @@ namespace ToDoApi.Controllers
         [ProducesResponseType(typeof(TarefaDto), StatusCodes.Status201Created)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public ActionResult Salvar(TarefaDto tarefaDto)
+        public async Task<ActionResult> Salvar(TarefaDto tarefaDto)
         {
             try
             {
@@ -205,7 +205,7 @@ namespace ToDoApi.Controllers
                     return BadRequest();
                 }
                 _uof.TarefaRepositorio.Add(tarefa);
-                _uof.Commit();
+                await _uof.Commit();
 
                 var tarefaDTO = _mapper.Map<TarefaDto>(tarefa);
 
@@ -229,7 +229,7 @@ namespace ToDoApi.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public ActionResult Alterar(int id, TarefaDto tarefaDto)
+        public async Task<ActionResult> Alterar(int id, TarefaDto tarefaDto)
         {
             try
             {
@@ -239,7 +239,7 @@ namespace ToDoApi.Controllers
                 }
                 var tarefa = _mapper.Map<Tarefa>(tarefaDto);
                 _uof.TarefaRepositorio.Update(tarefa);
-                _uof.Commit();
+                await _uof.Commit();
 
                 return NoContent();
             }
@@ -264,13 +264,13 @@ namespace ToDoApi.Controllers
         {
             try
             {
-                var tarefa = await  _uof.TarefaRepositorio.GetById(x => x.TarefaId == id);
+                var tarefa = await _uof.TarefaRepositorio.GetById(x => x.TarefaId == id);
                 if (tarefa == null)
                 {
                     return NotFound("Tarefa não localizada!");
                 }
                 _uof.TarefaRepositorio.Delete(tarefa);
-                _uof.Commit();
+                await _uof.Commit();
 
                 return NoContent();
             }

@@ -26,9 +26,9 @@ namespace Infraestrutura.Repositorio
             _context.Dispose();
         }
 
-        public void Commit()
+        public async Task Commit()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

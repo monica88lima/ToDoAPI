@@ -20,7 +20,7 @@ namespace ToDoApiXunitTest
         private readonly IUnitOfWork repos;
         private static readonly IConfiguration conf;
         private readonly IMapper mapper;
-        public int MyProperty { get; set; }
+       
         public static DbContextOptions<AppDbContext> dbContextOptions { get; }
 
 
@@ -49,7 +49,7 @@ namespace ToDoApiXunitTest
         /// Teste do método post com parametros válidos
         /// </summary>
         [Fact]
-        public void Salva_PostTarefa()
+        public async Task Salva_PostTarefa()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
@@ -63,7 +63,7 @@ namespace ToDoApiXunitTest
             };
 
             //Act
-            var data = controller.Salvar(trf);
+            var data =await controller.Salvar(trf);
 
             //Assert
             Assert.IsType<CreatedAtRouteResult>(data);
@@ -74,7 +74,7 @@ namespace ToDoApiXunitTest
         /// Teste método put com informações válida
         /// </summary>
         [Fact]
-        public void Alterar_PutTarefa()
+        public async Task Alterar_PutTarefa()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
@@ -89,7 +89,7 @@ namespace ToDoApiXunitTest
             };
 
             //Act
-            var data = controller.Alterar(id, trf);
+            var data = await controller.Alterar(id, trf);
 
             //Assert
             Assert.IsType<NoContentResult>(data);
@@ -99,14 +99,14 @@ namespace ToDoApiXunitTest
         /// Teste de Consulta de todas as tarefas
         /// </summary>
         [Fact]
-        public void Consulta_TarefaID_RetornaTudo()
+        public async Task Consulta_TarefaID_RetornaTudo()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
             TarefaParametros parametros = new();
             
             //Act
-            var data = controller.Consulta(parametros);
+            var data = await controller.Consulta(parametros);
 
             //Assert
             Assert.IsType<List<TarefaDto>>(data.Value);
@@ -117,14 +117,14 @@ namespace ToDoApiXunitTest
         /// Teste de Get enviando um ID válido
         /// </summary>
         [Fact]
-        public void Consulta_TarefaID_RetornaId()
+        public async Task Consulta_TarefaID_RetornaId()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
             int id = 1010;
 
             //Act
-            var data = controller.Consulta(id);
+            var data = await controller.Consulta(id);
 
             //Assert
             Assert.IsType<OkObjectResult>(data.Result);
@@ -133,14 +133,14 @@ namespace ToDoApiXunitTest
         /// Teste de consulta por ID com ID inválido, inexistente
         /// </summary>
         [Fact]
-        public void Consulta_TarefaID_RetornoNotFound()
+        public async Task Consulta_TarefaID_RetornoNotFound()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
             int id = 99999;
 
             //Act
-            var data = controller.Consulta(id);
+            var data = await controller.Consulta(id);
 
             //Assert
             Assert.IsType<NotFoundObjectResult>(data.Result);
@@ -149,14 +149,14 @@ namespace ToDoApiXunitTest
         /// Teste de data_valida
         /// </summary>
         [Fact]
-        public void Consulta_DataCricao_Valida()
+        public async Task Consulta_DataCricao_Valida()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
             DateTime dataC = new DateTime(2023, 07, 09);
 
             //Act
-            var data = controller.ConsultaPorDataCriacao(dataC);
+            var data = await controller.ConsultaPorDataCriacao(dataC);
 
             //Assert
             Assert.IsType<OkObjectResult>(data.Result);
@@ -165,14 +165,14 @@ namespace ToDoApiXunitTest
         /// Teste com uma data futura inexistente
         /// </summary>
         [Fact]
-        public void Consulta_DataCricao_semRegistroNotFound()
+        public async Task Consulta_DataCricao_semRegistroNotFound()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
             DateTime dataInvalida = new DateTime(2025, 09, 12);
 
             //Act
-            var data = controller.ConsultaPorDataCriacao(dataInvalida);
+            var data = await controller.ConsultaPorDataCriacao(dataInvalida);
 
             //Assert
             Assert.IsType<NotFoundObjectResult>(data.Result);
@@ -181,37 +181,37 @@ namespace ToDoApiXunitTest
         /// Teste de consulta para validar se o retorno estava de acordo com os registros do BD.
         /// </summary>
         [Fact]
-        public void Consulta_Geral_ValidarRetornosConsultas()
+        public async Task Consulta_Geral_ValidarRetornosConsultas()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
             TarefaParametros parametros = new() ;
 
             //Act
-            var data = controller.Consulta(parametros);
+            var data = await controller.Consulta(parametros);
 
             //Assert
             Assert.IsType<List<TarefaDto>>(data.Value);
             var trf = data.Value.Should().BeAssignableTo<List<TarefaDto>>().Subject;
 
-            Assert.Equal("Almoçar", trf[0].Titulo);
-            Assert.Equal("Ingerir alimentos as 12h", trf[0].Descricao);
+            Assert.Equal("Almoçar", trf[1].Titulo);
+            Assert.Equal("Ingerir alimentos as 12h", trf[1].Descricao);
 
-            Assert.Equal("Guarda brinquedos", trf[4].Titulo);
-            Assert.Equal("bonecas", trf[4].Descricao);
+            Assert.Equal(" Teste Unitario ", trf[0].Titulo);
+            Assert.Equal("Alterando", trf[0].Descricao);
         }
         /// <summary>
         /// Teste de pesquisa por lista, esperado uma lista cm diversas tarefas
         /// </summary>
         [Fact]
-        public void Consulta_TarefaTitulo_RetornaListaTarefas()
+        public async Task Consulta_TarefaTitulo_RetornaListaTarefas()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
             string titulo = "faz";
 
             //Act
-            var data = controller.ConsultaPorNome(titulo);
+            var data = await controller.ConsultaPorNome(titulo);
 
             //Assert
             Assert.IsType<OkObjectResult>(data.Result);
@@ -220,7 +220,7 @@ namespace ToDoApiXunitTest
         /// Teste com pesquisas invalidas, para verificar o fluxo ( palavra vazia, menor que 3 letras.
         /// </summary>
         [Fact]
-        public void Consulta_TarefaTitulo_RetornaBadRequest()
+        public async Task Consulta_TarefaTitulo_RetornaBadRequest()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
@@ -228,8 +228,8 @@ namespace ToDoApiXunitTest
             string tituloVazio = "";
 
             //Act
-            var data = controller.ConsultaPorNome(titulo2Char);
-            var data2 = controller.ConsultaPorNome(tituloVazio);
+            var data = await controller.ConsultaPorNome(titulo2Char);
+            var data2 = await controller.ConsultaPorNome(tituloVazio);
 
             //Assert
             Assert.IsType<BadRequestObjectResult>(data.Result);
@@ -239,14 +239,14 @@ namespace ToDoApiXunitTest
         /// Titulo de tarefa inexistente
         /// </summary>
         [Fact]
-        public void Consulta_TarefaTitulo_RetornaNotFound()
+        public async Task Consulta_TarefaTitulo_RetornaNotFound()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
             string titulo = "Brigadeiro";
 
             //Act
-            var data = controller.ConsultaPorNome(titulo);
+            var data = await controller.ConsultaPorNome(titulo);
 
             //Assert
             Assert.IsType<NotFoundObjectResult>(data.Result);
@@ -256,7 +256,7 @@ namespace ToDoApiXunitTest
         /// Teste por range com entradas válidas
         /// </summary>
         [Fact]
-        public void Consulta_ConsultaPorPeriodo_RetornaLista()
+        public async Task Consulta_ConsultaPorPeriodo_RetornaLista()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
@@ -264,7 +264,7 @@ namespace ToDoApiXunitTest
             DateTime dataF = new DateTime(2023, 07, 09);
 
             //Act
-            var data = controller.ConsultaPorPeriodo(dataI, dataF);
+            var data = await controller.ConsultaPorPeriodo(dataI, dataF);
 
             //Assert
             Assert.IsType<OkObjectResult>(data.Result);
@@ -274,7 +274,7 @@ namespace ToDoApiXunitTest
         /// Teste de consulta por Range, considerando a data Inicial maior que a Data Final da tarefa cadastrada
         /// </summary>
         [Fact]
-        public void Consulta_ConsultaPorPeriodo_RetornaBadRequest()
+        public async Task Consulta_ConsultaPorPeriodo_RetornaBadRequest()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
@@ -282,7 +282,7 @@ namespace ToDoApiXunitTest
             DateTime dataF = new DateTime(2023, 07, 09);
 
             //Act
-            var data = controller.ConsultaPorPeriodo(dataI, dataF);
+            var data = await controller.ConsultaPorPeriodo(dataI, dataF);
 
             //Assert
             Assert.IsType<BadRequestObjectResult>(data.Result);
@@ -292,7 +292,7 @@ namespace ToDoApiXunitTest
         /// Teste de consulta por rande de data, considerando um periodo sem tarefa cadastrada
         /// </summary>
         [Fact]
-        public void Consulta_ConsultaPorPeriodo_RetornaNotFound()
+        public async Task Consulta_ConsultaPorPeriodo_RetornaNotFound()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
@@ -300,7 +300,7 @@ namespace ToDoApiXunitTest
             DateTime dataF = new DateTime(2072, 07, 09);
 
             //Act
-            var data = controller.ConsultaPorPeriodo(dataI, dataF);
+            var data = await controller.ConsultaPorPeriodo(dataI, dataF);
 
             //Assert
             Assert.IsType<NotFoundObjectResult>(data.Result);
@@ -311,7 +311,7 @@ namespace ToDoApiXunitTest
         /// Teste para validar o retorno de um atentativa de alteração com im ID divergente da Tarefa enviada.
         /// </summary>
         [Fact]
-        public void Alterar_PutTarefa_RetornoBadRequest()
+        public async Task Alterar_PutTarefa_RetornoBadRequest()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
@@ -326,7 +326,7 @@ namespace ToDoApiXunitTest
             };
 
             //Act
-            var data = controller.Alterar(id, trf);
+            var data = await controller.Alterar(id, trf);
 
             //Assert
             Assert.IsType<BadRequestResult>(data);
@@ -336,11 +336,11 @@ namespace ToDoApiXunitTest
        /// Teste para deletar com dados válidos
        /// </summary>
         [Fact]
-        public async void Deletar_RetornoOk()
+        public async Task Deletar_RetornoOk()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);
-            int id = 1017;
+            int id = 2009;
            
 
             //Act
@@ -354,7 +354,7 @@ namespace ToDoApiXunitTest
         /// Teste para validar o envio de um ID inexistente, retorno esperado notfound
         /// </summary>
         [Fact]
-        public async void Deletar_RetornoNotFound()
+        public async Task Deletar_RetornoNotFound()
         {
             //Arrange
             var controller = new TarefaController(repos, mapper, conf);

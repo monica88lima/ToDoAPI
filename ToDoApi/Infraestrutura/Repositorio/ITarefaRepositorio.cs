@@ -11,9 +11,9 @@ namespace Infraestrutura.Repositorio
 {
     public interface ITarefaRepositorio:IRepositorio<Tarefa>
     {
-       IEnumerable<Tarefa> GetTarefaEspeficica(Expression<Func<Tarefa, bool>> predicate);
+       Task<IEnumerable<Tarefa>> GetTarefaEspeficica(Expression<Func<Tarefa, bool>> predicate);
 
-        PaginacaoList<Tarefa> GetTarefas(TarefaParametros tarefaparametro);
+        Task<PaginacaoList<Tarefa>> GetTarefas(TarefaParametros tarefaparametro);
 
     }
 }

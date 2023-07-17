@@ -10,6 +10,6 @@ namespace Infraestrutura.Repositorio
     {
         ITarefaRepositorio TarefaRepositorio { get; }
 
-        void Commit();
+       Task Commit();
     }
 }
